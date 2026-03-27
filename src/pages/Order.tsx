@@ -17,7 +17,7 @@ const Order: React.FC = () => {
   const [peopleCount, setPeopleCount] = useState<number | ''>('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-  const [payment, setPayment] = useState<string>('Midtrans');
+  const [payment, setPayment] = useState<string>('DANA');
   const [agreed, setAgreed] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -178,8 +178,8 @@ const Order: React.FC = () => {
           <h3 className="font-bold text-lg mt-4 mb-2">Metode Pembayaran</h3>
           <div className="form-group mb-4">
             <label className="flex items-center gap-2 cursor-pointer mb-2">
-              <input type="radio" name="payment" value="Midtrans" checked={payment === 'Midtrans'} onChange={() => setPayment('Midtrans')} />
-              Online Payment via Midtrans (QRIS, Virtual Account, E-Wallet)
+              <input type="radio" name="payment" value="DANA" checked={payment === 'DANA'} onChange={() => setPayment('DANA')} />
+              DANA E-Wallet Checkout
             </label>
           </div>
 

@@ -56,10 +56,10 @@ const Payment: React.FC = () => {
         <div style={{ borderTop: '1px solid var(--border)', margin: '20px 0' }}></div>
 
         <div className="text-xl font-bold mb-4">
-          Online Payment secure by Midtrans 🛡️
+          Online Payment secure by DANA 🛡️
         </div>
         <p className="text-muted text-sm mb-4">
-          Anda akan diarahkan ke halaman pembayaran Midtrans untuk memilih metode pembayaran (QRIS, Bank Transfer, E-Wallet, dll).
+          Anda akan diarahkan ke halaman pembayaran DANA untuk menyelesaikan transaksi Anda.
         </p>
       </div>
 
@@ -72,7 +72,7 @@ const Payment: React.FC = () => {
         {isProcessing ? (
           <><Loader2 className="animate-spin" /> Memproses Pembayaran...</>
         ) : (
-          <><CheckCircle /> Bayar via Midtrans</>
+          <><CheckCircle /> Bayar via DANA</>
         )}
       </button>
 
