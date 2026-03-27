@@ -1,0 +1,7 @@
+﻿Usage: ctx7 login [options]
+
+Log in to Context7
+
+Options:
+  --no-browser  Don't open browser automatically
+  -h, --help    display help for command

@@ -1,0 +1,42 @@
+﻿Usage: ctx7 [options] [command]
+
+Context7 CLI - Manage AI coding skills and documentation context
+
+Options:
+  -V, --version                       output the version number
+  --base-url <url>
+  -h, --help                          display help for command
+
+Commands:
+  skills|skill                        Manage AI coding skills
+  login [options]                     Log in to Context7
+  logout                              Log out of Context7
+  whoami                              Show current login status
+  setup [options]                     Set up Context7 for your AI coding agent
+  library [options] <name> [query]    Resolve a library name to a Context7
+                                      library ID
+  docs [options] <libraryId> <query>  Query documentation for a library
+
+Examples:
+  # Search for skills
+  npx ctx7 skills search pdf
+  npx ctx7 skills search react hooks
+
+  # Install from a repository
+  npx ctx7 skills install /anthropics/skills
+  npx ctx7 skills install /anthropics/skills pdf
+
+  # Install to specific client
+  npx ctx7 skills install /anthropics/skills --cursor
+  npx ctx7 skills install /anthropics/skills --global
+
+  # List and manage installed skills
+  npx ctx7 skills list --claude
+  npx ctx7 skills remove pdf
+
+  # Query library documentation
+  npx ctx7 library react "how to use hooks"
+  npx ctx7 docs /facebook/react "useEffect examples"
+
+Visit https://context7.com to browse skills
+
