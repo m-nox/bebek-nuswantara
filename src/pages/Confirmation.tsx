@@ -8,13 +8,11 @@ const Confirmation: React.FC = () => {
   const navigate = useNavigate();
   const { orderData, items, paymentMethod, getTotal, clearCart } = useCart();
 
-  // On mount, store local copy maybe? But for simplicity just kick if missing.
   if (!orderData || items.length === 0) {
     return <Navigate to="/order" replace />;
   }
 
-  // Once confirmed, the data should technically be persisted or cleared. 
-  // We will display it from context, and clear it when the user leaves.
+
   const handleHomeClick = () => {
     clearCart();
     navigate('/');

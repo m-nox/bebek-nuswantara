@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
     <nav className="navbar">
       <div className="container">
         <Link to="/" className="nav-logo">
-          <img src="/vite.svg" alt="Logo" style={{ width: 32, height: 32, filter: 'hue-rotate(150deg)' }} />
+          <span style={{ fontSize: 28, lineHeight: 1 }}>🦆</span>
           Bebek Nuswantara <span style={{fontSize: '0.8rem', backgroundColor: 'var(--primary)', color: 'white', padding: '2px 8px', borderRadius: 12, marginLeft: 4}}>BETA</span>
         </Link>
         <div className="nav-links">

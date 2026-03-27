@@ -63,7 +63,6 @@ const Order: React.FC = () => {
             <div className="grid grid-cols-2 gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))' }}>
               {mItems.map((item) => (
                 <div key={item.id} className="product-card">
-                  {/* Empty Image Placeholder */}
                   <div className="product-image"></div>
                   <div className="product-info">
                     <h3 className="product-title">{item.name}</h3>

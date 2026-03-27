@@ -16,8 +16,9 @@ const Payment: React.FC = () => {
 
   const handlePayment = async () => {
     setIsProcessing(true);
+    const apiBase = import.meta.env.VITE_API_URL || '/api';
     try {
-      const response = await fetch('http://localhost:3001/api/orders', {
+      const response = await fetch(`${apiBase}/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,12 +34,11 @@ const Payment: React.FC = () => {
       if (data.success && data.paymentUrl) {
         window.location.href = data.paymentUrl;
       } else {
-        alert('Gagal membuat pesanan');
+        alert('Gagal membuat pesanan. Silakan coba lagi.');
         setIsProcessing(false);
       }
     } catch (err) {
-      console.error(err);
-      alert('Terjadi kesalahan saat memproses pesanan.');
+      alert('Terjadi kesalahan saat memproses pesanan. Periksa koneksi Anda.');
       setIsProcessing(false);
     }
   };
@@ -51,7 +51,6 @@ const Payment: React.FC = () => {
       <div className="card w-full mb-6 text-center" style={{ width: '100%' }}>
         <h2 className="text-xl mb-4">Total Tagihan</h2>
         <div className="text-4xl font-bold text-primary mb-2">Rp {total.toLocaleString('id-ID')}</div>
-        <div className="text-muted mb-4">Order ID: BBR-{Math.floor(Math.random() * 900000) + 100000}</div>
         
         <div style={{ borderTop: '1px solid var(--border)', margin: '20px 0' }}></div>
 
