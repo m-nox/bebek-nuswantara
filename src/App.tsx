@@ -22,6 +22,7 @@ function App() {
               <Route path="/confirmation" element={<Confirmation />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/promo" element={<Navigate to="/" />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </main>
           <Footer />

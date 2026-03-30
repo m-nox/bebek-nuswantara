@@ -6,23 +6,23 @@ const Footer: React.FC = () => {
     <footer className="footer">
       <div className="container grid grid-cols-4 gap-6" style={{ paddingBottom: 40 }}>
         <div style={{ gridColumn: 'span 2' }}>
-          <h3 className="text-2xl mb-4" style={{ color: 'var(--primary)' }}>Bebek Nuswantara Beta</h3>
+          <h3 className="text-2xl mb-4" style={{ color: 'var(--primary)' }}>Bebek Nuswantara</h3>
           <p className="text-muted" style={{ maxWidth: 400, marginBottom: 20 }}>
             Menyajikan olahan bebek dan ayam bumbu hitam khas nusantara dengan rasa yang autentik, pedas mantap, dan daging yang super empuk.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="btn-icon" style={{ backgroundColor: '#333', borderColor: '#444', color: 'white' }}><Share2 size={20} /></a>
-            <a href="#" className="btn-icon" style={{ backgroundColor: '#333', borderColor: '#444', color: 'white' }}><Globe size={20} /></a>
-            <a href="#" className="btn-icon" style={{ backgroundColor: '#333', borderColor: '#444', color: 'white' }}><MessageCircle size={20} /></a>
+            <a href="#" className="btn-icon" style={{ backgroundColor: '#333', borderColor: '#444', color: 'white' }} aria-label="Share"><Share2 size={20} /></a>
+            <a href="#" className="btn-icon" style={{ backgroundColor: '#333', borderColor: '#444', color: 'white' }} aria-label="Website"><Globe size={20} /></a>
+            <a href="#" className="btn-icon" style={{ backgroundColor: '#333', borderColor: '#444', color: 'white' }} aria-label="Chat"><MessageCircle size={20} /></a>
           </div>
         </div>
         <div>
           <h4 className="text-xl mb-4" style={{ color: 'white' }}>Tautan Cepat</h4>
           <ul className="flex flex-col gap-2" style={{ listStyle: 'none' }}>
-            <li><a href="/order" className="text-muted hover-primary">Menu</a></li>
-            <li><a href="/promo" className="text-muted hover-primary">Promo</a></li>
-            <li><a href="/contact" className="text-muted hover-primary">Lokasi & Kontak</a></li>
-            <li><a href="#" className="text-muted hover-primary">Syarat & Ketentuan</a></li>
+            <li><a href="/order" className="text-muted">Menu</a></li>
+            <li><a href="/promo" className="text-muted">Promo</a></li>
+            <li><a href="/contact" className="text-muted">Lokasi & Kontak</a></li>
+            <li><a href="#" className="text-muted">Syarat & Ketentuan</a></li>
           </ul>
         </div>
         <div>
@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
         </div>
       </div>
       <div className="container text-center text-muted" style={{ borderTop: '1px solid #333', paddingTop: 20, fontSize: '0.9rem' }}>
-        &copy; {new Date().getFullYear()} Bebek Nuswantara Beta. All rights reserved.
+        &copy; {new Date().getFullYear()} Bebek Nuswantara. All rights reserved.
       </div>
     </footer>
   );

@@ -3,7 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { getMenuItemsByCategory, menuItems } from '../data/menu';
 import { useCart } from '../context/CartContext';
 import type { OrderData } from '../context/CartContext';
-import { Minus, Plus, ShoppingCart } from 'lucide-react';
+import { Minus, Plus, ShoppingCart, CreditCard } from 'lucide-react';
+
+const CATEGORY_ICONS: Record<string, string> = {
+  'Signature Bebek - Paket Nasi': '🦆',
+  'Bebek - Tanpa Nasi': '🍗',
+  'Penyet Sambal Terasi': '🌶️',
+  'Ayam - Paket Nasi': '🐔',
+  'Ayam - Tanpa Nasi': '🍗',
+  'Lele - Paket Nasi': '🐟',
+  'Lele - Tanpa Nasi': '🐟',
+  'Menu Tambahan': '🍳',
+  'Snack Beta': '🍟',
+  'Minuman Panas/Hot': '☕',
+  'Minuman Dingin/Es': '🧊',
+  'Mineral': '💧',
+};
 
 const Order: React.FC = () => {
   const navigate = useNavigate();
@@ -17,7 +32,7 @@ const Order: React.FC = () => {
   const [peopleCount, setPeopleCount] = useState<number | ''>('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-  const [payment, setPayment] = useState<string>('DANA');
+  const [payment, setPayment] = useState<string>('xendit');
   const [agreed, setAgreed] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -26,11 +41,7 @@ const Order: React.FC = () => {
       alert('Silakan pilih menu terlebih dahulu!');
       return;
     }
-    if (!payment) {
-      alert('Silakan pilih metode pembayaran.');
-      return;
-    }
-    
+
     const orderData: OrderData = {
       serviceType,
       name,
@@ -52,23 +63,28 @@ const Order: React.FC = () => {
 
   return (
     <div className="container" style={{ padding: '40px 20px', display: 'flex', gap: '32px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-      
+
       {/* Menu Area */}
       <div style={{ flex: '1 1 60%', minWidth: 300 }}>
-        <h1 className="text-3xl mb-6">Menu Pilihan</h1>
-        
+        <h1 className="text-3xl mb-2">Menu Pilihan</h1>
+        <p className="text-muted mb-6">Pilih menu favorit Anda, lalu isi formulir pemesanan di samping.</p>
+
         {Object.entries(menuByCategory).map(([category, mItems]) => (
           <div key={category} style={{ marginBottom: '40px' }}>
-            <h2 className="text-2xl mb-4" style={{ color: 'var(--primary)', borderBottom: '2px solid var(--border)', paddingBottom: '8px' }}>{category}</h2>
-            <div className="grid grid-cols-2 gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))' }}>
+            <h2 className="text-2xl mb-4 flex items-center gap-2" style={{ color: 'var(--primary)', borderBottom: '2px solid var(--border)', paddingBottom: '8px' }}>
+              <span>{CATEGORY_ICONS[category] || '🍽️'}</span> {category}
+            </h2>
+            <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))' }}>
               {mItems.map((item) => (
                 <div key={item.id} className="product-card">
-                  <div className="product-image"></div>
+                  <div className="product-image">
+                    {CATEGORY_ICONS[item.category] || '🍽️'}
+                  </div>
                   <div className="product-info">
                     <h3 className="product-title">{item.name}</h3>
                     <p className="product-price">Rp {item.price.toLocaleString('id-ID')}</p>
-                    
-                    <div className="quantity-control mt-auto">
+
+                    <div className="quantity-control">
                       <button type="button" onClick={() => updateQuantity(item.id, -1)} aria-label="Kurangi">
                         <Minus size={18} />
                       </button>
@@ -86,11 +102,11 @@ const Order: React.FC = () => {
       </div>
 
       {/* Cart & Form Area */}
-      <div className="card" style={{ flex: '1 1 35%', minWidth: 320, position: 'sticky', top: '100px' }}>
+      <div className="card" style={{ flex: '1 1 35%', minWidth: 320, position: 'sticky', top: '80px' }}>
         <h2 className="text-2xl mb-4 flex items-center gap-2">
           <ShoppingCart /> Ringkasan Pesanan
         </h2>
-        
+
         {items.length === 0 ? (
           <p className="text-muted mb-6">Belum ada menu yang dipilih.</p>
         ) : (
@@ -99,7 +115,7 @@ const Order: React.FC = () => {
               const menu = menuItems.find(m => m.id === cartItem.id);
               if (!menu) return null;
               return (
-                <div key={cartItem.id} className="flex justify-between mb-2">
+                <div key={cartItem.id} className="flex justify-between mb-2" style={{ fontSize: '0.95rem' }}>
                   <div>
                     <span className="font-bold">{menu.name}</span> x {cartItem.quantity}
                   </div>
@@ -118,23 +134,25 @@ const Order: React.FC = () => {
           <div className="form-group mb-4">
             <span className="form-label">Pilihan Layanan</span>
             <div className="flex gap-4">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input 
-                  type="radio" 
-                  name="service" 
-                  value="Dine-in" 
-                  checked={serviceType === 'Dine-in'} 
-                  onChange={() => setServiceType('Dine-in')} 
+              <label className="flex items-center gap-2" style={{ cursor: 'pointer' }}>
+                <input
+                  type="radio"
+                  name="service"
+                  value="Dine-in"
+                  checked={serviceType === 'Dine-in'}
+                  onChange={() => setServiceType('Dine-in')}
+                  style={{ accentColor: 'var(--primary)' }}
                 />
-                Makan di Tempat (Dine-in)
+                Makan di Tempat
               </label>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input 
-                  type="radio" 
-                  name="service" 
-                  value="Take Away" 
-                  checked={serviceType === 'Take Away'} 
-                  onChange={() => setServiceType('Take Away')} 
+              <label className="flex items-center gap-2" style={{ cursor: 'pointer' }}>
+                <input
+                  type="radio"
+                  name="service"
+                  value="Take Away"
+                  checked={serviceType === 'Take Away'}
+                  onChange={() => setServiceType('Take Away')}
+                  style={{ accentColor: 'var(--primary)' }}
                 />
                 Take Away
               </label>
@@ -175,19 +193,23 @@ const Order: React.FC = () => {
           </div>
 
           <h3 className="font-bold text-lg mt-4 mb-2">Metode Pembayaran</h3>
-          <div className="form-group mb-4">
-            <label className="flex items-center gap-2 cursor-pointer mb-2">
-              <input type="radio" name="payment" value="DANA" checked={payment === 'DANA'} onChange={() => setPayment('DANA')} />
-              DANA E-Wallet Checkout
-            </label>
-          </div>
+          <p className="text-muted text-sm mb-4">Pembayaran diproses secara aman melalui Xendit</p>
 
-          <label className="flex items-start gap-2 cursor-pointer mb-6 text-sm text-muted">
-            <input type="checkbox" required checked={agreed} onChange={e => setAgreed(e.target.checked)} style={{ marginTop: 4 }} />
-            Saya menyetujui syarat dan ketentuan pemesanan di Bebek Nuswantara Beta.
+          <label className={`payment-option ${payment === 'xendit' ? 'selected' : ''}`}>
+            <input type="radio" name="payment" value="xendit" checked={payment === 'xendit'} onChange={() => setPayment('xendit')} />
+            <CreditCard size={20} style={{ color: 'var(--primary)' }} />
+            <div>
+              <div className="font-bold" style={{ fontSize: '0.95rem' }}>Online Payment</div>
+              <div className="text-muted text-sm">QRIS, Virtual Account, E-Wallet, Kartu Kredit/Debit</div>
+            </div>
           </label>
 
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '16px', fontSize: '1.2rem' }} disabled={items.length === 0 || !agreed}>
+          <label className="flex items-start gap-2 mb-6 text-sm text-muted" style={{ cursor: 'pointer', marginTop: 16 }}>
+            <input type="checkbox" required checked={agreed} onChange={e => setAgreed(e.target.checked)} style={{ marginTop: 4, accentColor: 'var(--primary)' }} />
+            Saya menyetujui syarat dan ketentuan pemesanan di Bebek Nuswantara.
+          </label>
+
+          <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '16px', fontSize: '1.15rem' }} disabled={items.length === 0 || !agreed}>
             Pesan Sekarang
           </button>
         </form>
