@@ -1,5 +1,5 @@
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
 
 const app = express();
 app.use(cors());
@@ -233,14 +233,13 @@ app.get('/api/payment/finish', (req, res) => {
 
 // ── List All Orders (admin/debug) ─────────────────────────────────────────────
 app.get('/api/orders', async (_req, res) => {
-  // Scan Redis for order keys
   const keys = await redisCommand('KEYS', 'order:*');
   if (!keys || keys.length === 0) {
     return res.json({ orders: [] });
   }
 
   const orders = [];
-  for (const key of keys.slice(0, 50)) { // Limit to 50
+  for (const key of keys.slice(0, 50)) {
     const json = await redisCommand('GET', key);
     if (json) {
       try {
@@ -253,4 +252,4 @@ app.get('/api/orders', async (_req, res) => {
   res.json({ orders });
 });
 
-module.exports = app;
+export default app;
